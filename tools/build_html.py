@@ -61,6 +61,10 @@ blockquote:has(strong:first-child){}
 hr{border:none; border-top:1px solid var(--line); margin:44px 0}
 ul,ol{padding-left:22px}
 li{margin:6px 0}
+pre{background:var(--navy); border:1px solid #16304F; border-radius:12px;
+    padding:18px 22px; overflow-x:auto; margin:20px 0}
+pre code{background:none; border:none; padding:0; color:#DCE6F2;
+    font-size:13px; line-height:1.68; display:block; white-space:pre}
 code{background:#F1F5F9; border:1px solid var(--line); border-radius:6px;
      padding:1.5px 6px; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
      font-size:.88em; color:#0F172A}
@@ -111,7 +115,8 @@ def build(src_md, out_html=None):
         title = m.group(1).strip()
 
     body = markdown.markdown(
-        text, extensions=["tables", "attr_list", "md_in_html", "sane_lists"])
+        text, extensions=["tables", "attr_list", "md_in_html", "sane_lists",
+                          "fenced_code"])
     body = embed_images(body, os.path.dirname(os.path.abspath(src_md)))
 
     html = f"""<!DOCTYPE html>

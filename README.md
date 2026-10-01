@@ -16,10 +16,14 @@ notes/
   INDEX.md                      <- table of contents: every published topic
   01_introduction_to_python.md  <- source of truth (Markdown)
   01_introduction_to_python.html<- print-ready reading copy (self-contained)
+  02_how_python_runs.md/.html   <- module 02, same pattern
 assets/
   01_intro/                     <- figures for module 01
+  02_how_python_runs/           <- figures for module 02
 tools/
-  make_figures.py               <- regenerates all figures for module 01
+  figlib.py                     <- shared design system for all figures
+  make_figures.py               <- regenerates figures for module 01
+  make_figures_02.py            <- regenerates figures for module 02
   build_html.py                 <- Markdown -> styled, self-contained HTML
 ```
 
@@ -28,6 +32,7 @@ tools/
 | # | Module | Document |
 |---|--------|----------|
 | 01 | Introduction to Python — origins, versions, applications, ecosystem | [notes/01_introduction_to_python.md](notes/01_introduction_to_python.md) |
+| 02 | How Python Runs — interpreted languages, bytecode, the PVM | [notes/02_how_python_runs.md](notes/02_how_python_runs.md) |
 
 Full list with status: [`notes/INDEX.md`](notes/INDEX.md).
 
@@ -46,11 +51,14 @@ Each published module contains:
 ## Rebuilding the visuals
 
 ```bash
-python3 tools/make_figures.py                              # figures for module 01
+cd tools && python3 make_figures.py && python3 make_figures_02.py && cd ..
 python3 tools/build_html.py notes/01_introduction_to_python.md
+python3 tools/build_html.py notes/02_how_python_runs.md
 ```
 
 ## Working notes
 
-- Version facts (3.14.x, support windows, TIOBE position) are correct as of **October 2026**;
-  review the version table in module 01 each October when a new minor release ships.
+- Version facts (3.14.x, support windows, TIOBE position, JIT status) are correct as of
+  **October 2026**; refresh them each October when a new minor release ships.
+- Module 02's `dis` sample output is verbatim CPython 3.11 and is labelled as such,
+  because opcode names and offsets differ between versions.
